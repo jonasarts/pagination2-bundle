@@ -1,8 +1,8 @@
 {
-    "name": "jonasarts/pagination-bundle",
+    "name": "jonasarts/pagination2-bundle",
     "description": "A Pagination System for Symfony",
     "keywords": ["pagination", "navigation", "menu", "sorting"],
-    "homepage": "https://github.com/jonasarts/pagination-bundle",
+    "homepage": "https://github.com/jonasarts/pagination2-bundle",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
