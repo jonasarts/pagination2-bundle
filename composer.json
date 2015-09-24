@@ -1,0 +1,24 @@
+{
+    "name": "jonasarts/pagination-bundle",
+    "description": "A Pagination System for Symfony",
+    "keywords": ["pagination", "navigation", "menu", "sorting"],
+    "homepage": "https://github.com/jonasarts/pagination-bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonas Hauser",
+            "email": "symfony@jonasarts.com",
+            "homepage": "http://www.jonasarts.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.3.9",
+        "symfony/framework-bundle": "~2.7"
+    },
+    "autoload": {
+        "psr-0": { "jonasarts\\Bundle\\PaginationBundle": "" }
+    },
+    "target-dir": "jonasarts/Bundle/PaginationBundle"
+}

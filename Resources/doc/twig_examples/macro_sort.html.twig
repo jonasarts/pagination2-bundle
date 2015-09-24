@@ -1,0 +1,14 @@
+{% macro column(current_sort_field_name, current_sort_direction, field_name, caption) %}
+{% spaceless %}
+    {% set sort_field = (current_sort_field_name == field_name and current_sort_direction == 'asc') ? field_name ~ '.desc' : field_name ~ '.asc' %}
+
+    {% if current_sort_field_name == field_name %}
+        {% set sort_field_caret = (sort_field == field_name ~ '.asc') ? '&nbsp;<i class="fa fa-caret-down"></i>' : '&nbsp;<i class="fa fa-caret-up"></i>' %}
+    {% endif %}
+
+    {% set route = app.request.attributes.get('_route') %}
+    {% set route_params = app.request.query.all %}
+
+    <a href="{{ path(route, route_params|merge({ 'sort': sort_field })) }}">{{ caption }}{{ sort_field_caret|default('')|raw }}</a>
+{% endspaceless %}
+{% endmacro %}
