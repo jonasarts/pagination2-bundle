@@ -18,7 +18,41 @@ use jonasarts\Bundle\PaginationBundle\Interfaces\PageSizeSelectorInterface;
  */
 abstract class AbstractPageSizeSelector implements PageSizeSelectorInterface
 {
+    /**
+     * @var array
+     */
+    private $sizes;
+
+    /**
+     * @var integer
+     */
     private $currentSize;
+
+    /**
+     * 
+     */
+    public function __construct()
+    {
+        $this->sizes = array(10,20,50,100);
+    }
+
+    /**
+     * 
+     */
+    public function getSizes()
+    {
+        return $this->sizes;
+    }
+
+    /**
+     * 
+     */
+    public function setSizes(array $sizes)
+    {
+        $this->sizes = $sizes;
+
+        return $this;
+    }
 
     /**
      * 

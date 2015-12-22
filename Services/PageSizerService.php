@@ -25,6 +25,9 @@ class PageSizerService
     // default pagination template
     private $template = 'pagination/pagesize.html.twig';
 
+    // default page sizes
+    private $sizes = array(10, 20, 50, 100);
+
     /**
      * Constructor.
      */
@@ -56,6 +59,18 @@ class PageSizerService
     }
 
     /**
+     * @param array $sizes
+     * 
+     * @return PageSizerService
+     */
+    public function setSizes(array $sizes)
+    {
+        $this->sizes = $sizes;
+
+        return $this;
+    }
+
+    /**
      * @param PaginationData $paginationData
      * @param array          $additionalData
      *
@@ -69,6 +84,7 @@ class PageSizerService
 
         $pagesizeselector = new PageSizeSelector();
 
+        $pagesizeselector->setSizes($this->sizes);
         $pagesizeselector->setCurrentSize($paginationData->getPageSize());
 
         $twig_env = $this->twig;

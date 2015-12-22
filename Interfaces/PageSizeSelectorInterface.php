@@ -17,16 +17,26 @@ namespace jonasarts\Bundle\PaginationBundle\Interfaces;
 interface PageSizeSelectorInterface
 {
     /**
+     * @return array
+     */
+    public function getSizes();
+
+    /**
+     * @param array $sizes
+     */
+    public function setSizes(array $sizes);
+
+    /**
      * For which size currently?
      * 
-     * @return int
+     * @return integer
      */
     public function getCurrentSize();
 
     /**
      * For which size currently?
      * 
-     * @param int $pageNumber
+     * @param int $size
      */
     public function setCurrentSize($size);
 }

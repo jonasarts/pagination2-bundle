@@ -30,6 +30,8 @@ class PageSizeSelector extends AbstractPageSizeSelector
      */
     public function __construct()
     {
+        parent::__construct();
+
     }
 
     /**
@@ -60,7 +62,7 @@ class PageSizeSelector extends AbstractPageSizeSelector
     private function getData()
     {
         $viewData = array(
-            'sizes' => array(10,20,50,100),
+            'sizes' => $this->getSizes(),
             'current' => $this->getCurrentSize(),
         );
 
