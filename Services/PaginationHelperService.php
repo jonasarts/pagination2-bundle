@@ -106,14 +106,6 @@ class PaginationHelperService
     }
 
     /**
-     * @return PaginationData
-     */
-    public function getPaginationData()
-    {
-        return $this->pagination_data;
-    }
-
-    /**
      * @return Closure
      */
     public function getCounter()
@@ -154,15 +146,21 @@ class PaginationHelperService
     {
         $page_index = null;
 
+        // process request
         if ($this->request->query->has($name)) {
             $page_index = $this->request->query->get($name);
         }
 
+        // read / write page index
         $page_index = $this->register($name, 'i', $page_index);
 
+        // if not value returned, use default
         if ($page_index == 0 || $page_index == null) {
             $page_index = $default_page_index;
         }
+
+        // update data
+        $this->pagination_data->setPageIndex($page_index);
 
         return $page_index;
     }
@@ -179,15 +177,21 @@ class PaginationHelperService
     {
         $page_range = null;
 
+        // process request
         if ($this->request->query->has($name)) {
             $page_range = $this->request->query->get($name);
         }
 
+        // read / write page range
         $page_range = $this->register($name, 'i', $page_range);
 
+        // if not value returned, use default
         if ($page_range == 0 || $page_range == null) {
             $page_range = $default_page_range;
         }
+
+        // update data
+        $this->pagination_data->setPageRange($page_range);
 
         return $page_range;
     }
@@ -204,15 +208,21 @@ class PaginationHelperService
     {
         $page_size = null;
 
+        // process request
         if ($this->request->query->has($name)) {
             $page_size = $this->request->query->get($name);
         }
 
+        // read / write page size
         $page_size = $this->register($name, 'i', $page_size);
 
+        // if not value returned, use default
         if ($page_size == 0 || $page_size == null) {
             $page_size = $default_page_size;
         }
+
+        // update data
+        $this->pagination_data->setPageSize($page_size);
 
         return $page_size;
     }
@@ -231,6 +241,7 @@ class PaginationHelperService
     {
         $sort_field_name = null;
 
+        // process request
         $sort = $this->request->query->get('sort');
 
         $sort_array = explode('.', $sort);
@@ -240,11 +251,16 @@ class PaginationHelperService
             }
         }
 
+        // read / write page size
         $sort_field_name = $this->register('sortfield', 's', $sort_field_name);
 
+        // if not value returned, use default
         if (trim($sort_field_name) == '') {
             $sort_field_name = $default_field_name;
         }
+
+        // update data
+        $this->pagination_data->setSortFieldName($sort_field_name);
 
         return $sort_field_name;
     }
@@ -263,6 +279,7 @@ class PaginationHelperService
     {
         $sort_direction = null;
 
+        // process request
         $sort = $this->request->query->get('sort');
 
         $sort_array = explode('.', $sort);
@@ -272,11 +289,16 @@ class PaginationHelperService
             }
         }
 
+        // read / write page size
         $sort_direction = $this->register('sortdirection', 's', $sort_direction);
 
+        // if not value returned, use default
         if (trim($sort_direction) == '') {
             $sort_direction = $default_direction;
         }
+
+        // update data
+        $this->pagination_data->setSortDirection($sort_direction);
 
         return $sort_direction;
     }
