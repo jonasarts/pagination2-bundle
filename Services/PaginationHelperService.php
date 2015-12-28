@@ -320,12 +320,12 @@ class PaginationHelperService
         // abort if no user present
         // anon. user is now a string (symfony 2.8)
         if (is_null($this->user) || is_array($this->user) || is_string($this->user)) {
-            return;
+            return $value;
         }
 
         // abort if no route present
         if (trim($this->route) == '') {
-            return;
+            return $value;
         }
 
         $user_id = $this->user->getId();
