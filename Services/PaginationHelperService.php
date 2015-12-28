@@ -70,14 +70,6 @@ class PaginationHelperService
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return 'use getCounter() method';
-    }
-
-    /**
      * Override pagesize template on the fly.
      * 
      * @param string $template
@@ -153,7 +145,7 @@ class PaginationHelperService
      *
      * @return interger
      */
-    private function getPageIndex($name = 'pageindex', $default_page_index = 1)
+    public function getPageIndex($name = 'pageindex', $default_page_index = 1)
     {
         $page_index = null;
 
@@ -184,7 +176,7 @@ class PaginationHelperService
      *
      * @return int
      */
-    private function getPageRange($name = 'pagerange', $default_page_range = 10)
+    public function getPageRange($name = 'pagerange', $default_page_range = 10)
     {
         $page_range = null;
 
@@ -215,7 +207,7 @@ class PaginationHelperService
      *
      * @return int
      */
-    private function getPageSize($name = 'pagesize', $default_page_size = 10)
+    public function getPageSize($name = 'pagesize', $default_page_size = 10)
     {
         $page_size = null;
 
