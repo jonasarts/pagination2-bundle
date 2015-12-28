@@ -145,7 +145,7 @@ class PaginationHelperService
      *
      * @return interger
      */
-    public function getPageIndex($name = 'pageindex', $default_page_index = 1)
+    public function getPageIndex($name = 'page', $default_page_index = 1)
     {
         $page_index = null;
 
@@ -176,7 +176,7 @@ class PaginationHelperService
      *
      * @return int
      */
-    public function getPageRange($name = 'pagerange', $default_page_range = 10)
+    public function getPageRange($name = 'range', $default_page_range = 10)
     {
         $page_range = null;
 
@@ -207,7 +207,7 @@ class PaginationHelperService
      *
      * @return int
      */
-    public function getPageSize($name = 'pagesize', $default_page_size = 10)
+    public function getPageSize($name = 'size', $default_page_size = 10)
     {
         $page_size = null;
 
@@ -240,7 +240,7 @@ class PaginationHelperService
      *
      * @return string
      */
-    public function getSortFieldName($default_field_name)
+    public function getSortFieldName($default_field_name = 'sort')
     {
         $sort_field_name = null;
 
