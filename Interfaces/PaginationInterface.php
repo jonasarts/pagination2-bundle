@@ -19,56 +19,56 @@ interface PaginationInterface
     /**
      * On which page currently?
      * 
-     * @return int
+     * @return integer
      */
     public function getCurrentPage();
 
     /**
      * On which page currently?
      * 
-     * @param int $pageNumber
+     * @param integer $pageNumber
      */
     public function setCurrentPage($pageNumber);
 
     /**
      * How many items per page?
      * 
-     * @return int
+     * @return integer
      */
     public function getPageSize();
 
     /**
      * How many items per page?
      * 
-     * @param int $itemsPerPage
+     * @param integer $itemsPerPage
      */
     public function setPageSize($itemsPerPage);
 
     /**
      * How many pages in sliding navigation.
      * 
-     * @return int
+     * @return integer
      */
     public function getPageRange();
 
     /**
      * How many pages in sliding navigation.
      * 
-     * @param int $pagesInRange
+     * @param integer $pagesInRange
      */
     public function setPageRange($pagesInRange);
 
     /**
      * How many items in total?
      * 
-     * @return int
+     * @return integer
      */
     public function getTotalItemsCount();
 
     /**
      * How many items in total?
      * 
-     * @param int $total
+     * @param integer $total
      */
     public function setTotalItemsCount($total);
 

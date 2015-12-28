@@ -292,10 +292,13 @@ class PaginationHelperService
      */
     private function register($name, $type, $value = null)
     {
-        if (is_null($this->user) || is_array($this->user)) {
+        // abort if no user present
+        // anon. user is now a string (symfony 2.8)
+        if (is_null($this->user) || is_array($this->user) || is_string($this->user)) {
             return;
         }
 
+        // abort if no route present
         if (trim($this->route) == '') {
             return;
         }

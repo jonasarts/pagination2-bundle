@@ -36,7 +36,7 @@ interface PageSizeSelectorInterface
     /**
      * For which size currently?
      * 
-     * @param int $size
+     * @param integer $size
      */
     public function setCurrentSize($size);
 }
