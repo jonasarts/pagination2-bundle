@@ -151,7 +151,7 @@ class PaginationHelperService
 
         // process request
         if ($this->request->query->has($name)) {
-            $page_index = $this->request->query->get($name);
+            $page_index = intval($this->request->query->get($name));
         }
 
         // read / write page index
@@ -182,7 +182,7 @@ class PaginationHelperService
 
         // process request
         if ($this->request->query->has($name)) {
-            $page_range = $this->request->query->get($name);
+            $page_range = intval($this->request->query->get($name));
         }
 
         // read / write page range
@@ -213,7 +213,7 @@ class PaginationHelperService
 
         // process request
         if ($this->request->query->has($name)) {
-            $page_size = $this->request->query->get($name);
+            $page_size = intval($this->request->query->get($name));
         }
 
         // read / write page size
