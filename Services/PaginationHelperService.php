@@ -106,6 +106,17 @@ class PaginationHelperService
     }
 
     /**
+     * If possible, do not modify pagination data directly.
+     * Use the provided methods form this class instead.
+     * 
+     * @return PaginationData
+     */
+    public function getPaginationData()
+    {
+        return $this->pagination_data;
+    }
+
+    /**
      * @return Closure
      */
     public function getCounter()
