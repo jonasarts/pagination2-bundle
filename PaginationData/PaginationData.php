@@ -100,19 +100,19 @@ class PaginationData
     /**
      * @return string
      */
-    public function getSortFieldName()
+    public function getSortName()
     {
-        return $this->data['sort_field_name'];
+        return $this->data['sort_name'];
     }
 
     /**
-     * @param string $sortFieldName
+     * @param string $sortName
      *
      * @return CounterData
      */
-    public function setSortFieldName($sortFieldName)
+    public function setSortName($sortName)
     {
-        $this->data['sort_field_name'] = $sortFieldName;
+        $this->data['sort_name'] = $sortName;
 
         return $this;
     }

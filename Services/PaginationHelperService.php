@@ -61,17 +61,17 @@ class PaginationHelperService
         $page_range = 10;
         $page_size = 10;
         $page_parameter_name = 'page';
-        $page_range_paramter_name = 'range';
-        $page_size_paramter_name = 'size';
-        $sort_field_name = 'sort';
+        $page_range_parameter_name = 'range';
+        $page_size_parameter_name = 'size';
+        $page_sort_parameter_name = 'sort';
 
         $this->pagination_data = new PaginationData();
 
         $this->pagination_data->setPageIndex($this->getPageIndex($page_parameter_name));
-        $this->pagination_data->setPageRange($this->getPageRange($page_range_paramter_name, $page_range));
-        $this->pagination_data->setPageSize($this->getPageSize($page_size_paramter_name, $page_size));
-        $this->pagination_data->setSortFieldName($this->getSortFieldName($sort_field_name));
-        $this->pagination_data->setSortDirection($this->getSortDirection());
+        $this->pagination_data->setPageRange($this->getPageRange($page_range_parameter_name, $page_range));
+        $this->pagination_data->setPageSize($this->getPageSize($page_size_parameter_name, $page_size));
+        $this->pagination_data->setSortFieldName($this->getSortFieldName($page_sort_parameter_name));
+        $this->pagination_data->setSortDirection($this->getSortDirection($page_sort_parameter_name));
     }
 
     /**
@@ -238,39 +238,40 @@ class PaginationHelperService
     /**
      * Reads sort field.
      * 
-     * If sort field present, updates value to registry.
-     * If no sort field is found, tries to read last value from registry.
-     * 
-     * @param string $default_field_name
+     * @param string    $name           The parameter name to read from request to get page_sort value
+     * @param string    $default_sort   The value to return if no custom page_sort is found
      *
      * @return string
      */
-    public function getSortFieldName($default_field_name = 'sort')
+    public function getSortFieldName($name = 'sort', $default_sort = null)
     {
-        $sort_field_name = null;
+        $sort_name = null;
+        $sort = '';
 
         // process request
-        $sort = $this->request->query->get('sort');
+        if ($this->request->query->has($name)) {
+            $sort = $this->request->query->get($name);
+        }
 
         $sort_array = explode('.', $sort);
         if (is_array($sort_array)) {
             if (trim($sort_array[0]) != '') {
-                $sort_field_name = $sort_array[0];
+                $sort_name = $sort_array[0];
             }
         }
 
         // read / write page size
-        $sort_field_name = $this->register('sortfield', 's', $sort_field_name);
+        $sort_name = $this->register('sort_name', 's', $sort_name);
 
         // if not value returned, use default
-        if (trim($sort_field_name) == '') {
-            $sort_field_name = $default_field_name;
+        if (trim($sort_name) == '') {
+            $sort_name = $default_sort;
         }
 
         // update data
-        $this->pagination_data->setSortFieldName($sort_field_name);
+        $this->pagination_data->setSortName($sort_name);
 
-        return $sort_field_name;
+        return $sort_name;
     }
 
     /**
@@ -283,12 +284,15 @@ class PaginationHelperService
      *
      * @return string
      */
-    public function getSortDirection($default_direction = 'asc')
+    public function getSortDirection($name = 'sort', $default_direction = 'asc')
     {
         $sort_direction = null;
+        $sort = '';
 
         // process request
-        $sort = $this->request->query->get('sort');
+        if ($this->request->query->has($name)) {
+            $sort = $this->request->query->get($name);
+        }
 
         $sort_array = explode('.', $sort);
         if (is_array($sort_array)) {
@@ -298,7 +302,7 @@ class PaginationHelperService
         }
 
         // read / write page size
-        $sort_direction = $this->register('sortdirection', 's', $sort_direction);
+        $sort_direction = $this->register('sort_direction', 's', $sort_direction);
 
         // if not value returned, use default
         if (trim($sort_direction) == '') {
