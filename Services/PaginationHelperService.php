@@ -70,7 +70,7 @@ class PaginationHelperService
         $this->pagination_data->setPageIndex($this->getPageIndex($page_parameter_name));
         $this->pagination_data->setPageRange($this->getPageRange($page_range_parameter_name, $page_range));
         $this->pagination_data->setPageSize($this->getPageSize($page_size_parameter_name, $page_size));
-        $this->pagination_data->setSortFieldName($this->getSortFieldName($page_sort_parameter_name));
+        $this->pagination_data->setSortName($this->getSortName($page_sort_parameter_name));
         $this->pagination_data->setSortDirection($this->getSortDirection($page_sort_parameter_name));
     }
 
@@ -243,7 +243,7 @@ class PaginationHelperService
      *
      * @return string
      */
-    public function getSortFieldName($name = 'sort', $default_sort = null)
+    public function getSortName($name = 'sort', $default_sort = null)
     {
         $sort_name = null;
         $sort = '';
