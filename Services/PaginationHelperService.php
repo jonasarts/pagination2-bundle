@@ -12,6 +12,7 @@
 namespace jonasarts\Bundle\PaginationBundle\Services;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use jonasarts\Bundle\PaginationBundle\Counter\Counter;
 use jonasarts\Bundle\PaginationBundle\PaginationData\PaginationData;
 
@@ -22,6 +23,8 @@ class PaginationHelperService
 {
     // service container
     private $container;
+    // request_stack
+    private $request_stack;
     // request
     private $request;
     // route name
@@ -43,11 +46,13 @@ class PaginationHelperService
     /**
      * Constructor.
      */
-    public function __construct(ContainerInterface $container, \Twig_Environment $twig)
+    public function __construct(ContainerInterface $container, RequestStack $requestStack, \Twig_Environment $twig)
     {
         $this->container = $container;
-        $this->request = $this->container->get('request');
+        $this->requestStack = $requestStack;
+        $this->request = $this->requestStack->getCurrentRequest();
         $this->route = $this->request->get('_route');
+
         $this->user = $this->container->get('security.token_storage')->getToken()->getUser();
 
         $this->twig = $twig;

@@ -6,10 +6,10 @@ parameters:
 services:
     pagesizer:
         class: %pagesizer_class%
-        arguments: [ @twig ]
+        arguments: [ "@twig" ]
     paginationhelper:
         class: %paginationhelper_class%
-        arguments: [ @service_container, @twig ]
+        arguments: [ "@service_container", "@request_stack", "@twig" ]
     paginator:
         class: %paginator_class%
-        arguments: [ @twig ]
+        arguments: [ "@twig" ]
