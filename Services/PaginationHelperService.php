@@ -277,10 +277,8 @@ class PaginationHelperService
     /**
      * Reads sort direction.
      * 
-     * If sort direction is present, updates value to registry.
-     * If no sort direction is found, tries to read last value from registry.
-     * 
-     * @param string $default_direction
+     * @param string    $name
+     * @param string    $default_direction
      *
      * @return string
      */
