@@ -5,11 +5,11 @@ parameters:
 
 services:
     pagesizer:
-        class: %pagesizer_class%
+        class: "%pagesizer_class%"
         arguments: [ "@twig" ]
     paginationhelper:
-        class: %paginationhelper_class%
+        class: "%paginationhelper_class%"
         arguments: [ "@service_container", "@request_stack", "@twig" ]
     paginator:
-        class: %paginator_class%
+        class: "%paginator_class%"
         arguments: [ "@twig" ]
