@@ -325,7 +325,7 @@ class PaginationHelperService
     private function register($name, $type, $value = null)
     {
         // abort if no user present
-        // anon. user is now a string (symfony 2.8)
+        // anonymous user is now a string (symfony 2.8)
         if (is_null($this->user) || is_array($this->user) || is_string($this->user)) {
             return $value;
         }

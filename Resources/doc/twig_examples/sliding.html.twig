@@ -1,0 +1,32 @@
+{% set route = app.request.attributes.get('_route') %}
+{% set route_params = app.request.query.all %}
+
+<span class="page-navigation">
+    {% if pagination.paginationRangeIncludesFirst %}
+        <span class="text-muted">«<span class="sr-only"> ({{ 'common.pagination.first'|trans }})</span></span>
+    {% else %}
+        <a href="{{ path(route, route_params|merge({page: 0})|merge(additional_route_params|default({}))) }}" title="{{ 'common.pagination.first'|trans }}">«<span class="sr-only"> ({{ 'common.pagination.first'|trans }})</span></a>
+    {% endif %}
+    {% if paginationInfo.pageIndex == 0 %}
+        <span class="text-muted">‹<span class="sr-only"> ({{ 'common.pagination.previous'|trans }})</span></span>
+    {% else %}
+        <a href="{{ path(route, route_params|merge({page: (paginationInfo.pageIndex - 1)})|merge(additional_route_params|default({}))) }}" title="{{ 'common.pagination.previous'|trans }}">‹<span class="sr-only"> ({{ 'common.pagination.previous'|trans }})</span></a>
+    {% endif %}
+    {% for page in pagination.pages %}
+        {% if page == paginationInfo.pageIndex %}
+        <span class="text-danger">{{ page + 1 }}<span class="sr-only"> ({{ 'common.pagination.current'|trans }})</span></span>
+        {% else %}
+        <a href="{{ path(route, route_params|merge({page: page})|merge(additional_route_params|default({}))) }}" title="{{ (page + 1) ~ '. ' ~ 'common.pagination.page'|trans }}">{{ page + 1 }}</a>
+        {% endif %}
+    {% endfor %}
+    {% if paginationInfo.pageIndex == paginationInfo.totalPages - 1 %}
+        <span class="text-muted">›<span class="sr-only"> ({{ 'common.pagination.next'|trans }})</span></span>
+    {% else %}
+        <a href="{{ path(route, route_params|merge({page: (paginationInfo.pageIndex + 1)})|merge(additional_route_params|default({}))) }}" title="{{ 'common.pagination.next'|trans }}">›<span class="sr-only"> ({{ 'common.pagination.next'|trans }})</span></a>
+    {% endif %}
+    {% if pagination.paginationRangeIncludesLast %}
+        <span class="text-muted">»<span class="sr-only"> ({{ 'common.pagination.last'|trans }})</span></span>
+    {% else %}
+        <a href="{{ path(route, route_params|merge({page: paginationInfo.totalPages - 1})|merge(additional_route_params|default({}))) }}" title="{{ 'common.pagination.last'|trans }}">»<span class="sr-only"> ({{ 'common.pagination.last'|trans }})</span></a>
+    {% endif %}
+</span>

@@ -13,11 +13,9 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9",
-        "symfony/framework-bundle": "^2.7 || ^3.0"
+        "php": "^7.0",
     },
     "autoload": {
-        "psr-0": { "jonasarts\\Bundle\\PaginationBundle": "" }
-    },
-    "target-dir": "jonasarts/Bundle/PaginationBundle"
+        "psr-4": { "jonasarts\\Bundle\\PaginationBundle\\": "" }
+    }
 }
