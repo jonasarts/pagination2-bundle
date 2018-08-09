@@ -250,7 +250,7 @@ class PaginationData
 
     public function setSqlSearchString(?string $s): self
     {
-        $this->data['sqlSearchString'] = $sort;
+        $this->data['sqlSearchString'] = $s;
 
         return $this;
     }
