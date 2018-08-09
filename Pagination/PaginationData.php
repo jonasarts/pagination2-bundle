@@ -379,11 +379,7 @@ class PaginationData
         if (!empty($this->data['pages'])) {
             return;
         }
-
-        if (empty($this->repositoryData())) {
-            throw new \Exception('PaginationData is missing the doctrine repository data');
-        }
-        
+       
         // data passed from doctrine query
 
         //$pageRecords = $this->getPageRecords();
