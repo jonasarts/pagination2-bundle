@@ -25,16 +25,16 @@ use jonasarts\Bundle\RegistryBundle\Registry\AbstractRegistry;
  * - pass configuration to paginator (configuration -> doctrine)
  * - get additional geometry after loading entities (doctrine -> geometry)
  * 
- * Used on loading pagination configuration data from request : loadFromRequest()
- * -> pageIndex
- * -> pageSize
- * -> rangeSize
- * 
  * Avail configuration values (to set before passing AbstractEntityRepository.paginate())
  * - getPageSizes (get/set)
  * - getPageIndex (get/set)
  * - getPageSize  (get/set)
  * - getRangeSize (get/set)
+ * 
+ * Avail doctrine result values (set by AbstractEntityRepository.paginate())
+ * - setPageRecords
+ * - setTotalRecords
+ * - setTotalPages
  * 
  * Class calculates pagination 'geometry' after doctrine paginator has loaded the entities automatically on
  * - getPages
@@ -75,6 +75,10 @@ class PaginationData
             'page_size' => 0,
             'range_size' => 0,
 
+            'page_records' => 0,
+            'total_records' => 0,
+            'total_pages' => 0,
+
             'sort_field' => null,
             'sort_direction' => null,
         );
@@ -95,7 +99,9 @@ class PaginationData
         return $this->data;
     }
 
-    /* pagination configuration values */
+    /**
+     * pagination configuration values
+     */
 
     /**
      * Array with possible paginator range sizes. (Ex.: 10, 20, 50, 100)
@@ -191,7 +197,49 @@ class PaginationData
         return $this;
     }
 
-    /* ui sort */
+    /**
+     * doctrine result values
+     */
+
+    public function getPageRecords(): int
+    {
+        return $this->data['page_records'];
+    }
+
+    public function setPageRecords(int $value): self
+    {
+        $this->data['page_records'] = $value;
+
+        return $this;
+    }
+
+    public function getTotalRecords(): int
+    {
+        return $this->data['total_records'];
+    }
+
+    public function setTotalRecords(int $value): self
+    {
+        $this->data['total_records'] = $value;
+
+        return $this;
+    }
+
+    public function getTotalPages(): int
+    {
+        return $this->data['total_pages'];
+    }
+
+    public function setTotalPages(int $value): self
+    {
+        $this->data['total_pages'] = $value;
+
+        return $this;
+    }
+
+    /**
+     * ui sort
+     */
 
     public function getSortField(): ?string
     {
@@ -217,7 +265,9 @@ class PaginationData
         return $this;
     }
 
-    /* sql sort */
+    /**
+     * sql sort
+     */
 
     public function getSqlSortField(): ?string
     {
@@ -267,7 +317,9 @@ class PaginationData
         return $this;
     }
 
-    /* get calculated pagination data values */
+    /**
+     * get calculated pagination data values
+     */
 
     public function resetPaginationData()
     {
@@ -334,9 +386,9 @@ class PaginationData
         
         // data passed from doctrine query
 
-        //$pageRecords = $this->repositoryData->getPageRecords();
-        $totalRecords = $this->repositoryData->getTotalRecords();
-        $totalPages = $this->repositoryData->getTotalPages();
+        //$pageRecords = $this->getPageRecords();
+        $totalRecords = $this->getTotalRecords();
+        $totalPages = $this->getTotalPages();
 
         // data from 
 
@@ -401,70 +453,5 @@ class PaginationData
         for ($i = $paginationRangeStartPage; $i <= $paginationRangeEndPage; $i++) {
             $this->data['pages'][] = $i;
         }
-
-        return true;
     }
-
-    /* configuration data methods */
-
-    /**
-     * Helper method to load pagination configuration from request & registry
-     */
-    public function loadFromRequest(Request $request, UserInterface $user, string $key, AbstractRegistry $r): self
-    {
-        // GET
-        $pageIndex = $request->query->get('page');
-        $pageSize = $request->query->get('pagesize');
-        $rangeSize = $request->query->get('rangesize');
-
-        // reset to first page if a filter/search was executed
-        if ($request->attributes->has(FilterHelper::PAGINATOR_SEARCH_NOTIFICATION_FLAG)) {
-            $pageIndex = 0; // reset
-        }
-
-        if (!is_null($pageIndex)) {
-            // save
-            $r->rw($user->getId(), $key, 'pageindex', 'i', intval($pageIndex));
-        } else {
-            // try to load
-            $pageIndex = $r->rr($user->getId(), $key, 'pageindex', 'i');
-        }
-
-        if (!is_null($pageSize)) {
-            // save
-            $r->rw($user->getId(), $key, 'pagesize', 'i', intval($pageSize));
-        } else {
-            // try to load
-            $pageSize = $r->rr($user->getId(), $key, 'pagesize', 'i');
-        }
-        
-        if (!is_null($rangeSize)) {
-            // save
-            $r->rw($user->getId(), $key, 'rangesize', 'i', intval($rangeSize));
-        } else {
-            // try to load
-            $rangeSize = $r->rr($user->getId(), $key, 'rangesize', 'i');
-        }
-
-        // validate
-        if (!empty($pageIndex) && intval($pageIndex) < 0) {
-            $pageIndex = 0;
-        }
-        if (!empty($pageSize) && intval($pageSize) < 1) {
-            $pageSize = 10;
-        }
-        if (!empty($rangeSize) && intval($rangeSize) < 3) {
-            $rangeSize = 3;
-        }
-
-        // update pagination configuration data
-        $this->setPageIndex( empty($pageIndex) ? 0 : intval($pageIndex) );
-        $this->setPageSize( empty($pageSize) ? 10 : intval($pageSize) );
-        $this->setRangeSize( empty($rangeSize) ? 5 : intval($rangeSize) );
-
-        return $this;
-    }
-
-    
-
 }
