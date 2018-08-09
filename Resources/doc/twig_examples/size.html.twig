@@ -3,7 +3,7 @@
 
 <span class="page-navigation">
 {% for pagesize in pagination.pageSizes %}
-    {% if pagesize == paginationInfo.pageSize %}
+    {% if pagesize == pagination.pageSize %}
         <span class="text-danger">{{ pagesize }}</span>
     {% else %}
         <a href="{{ path(route, route_params|merge({page: 0, pagesize: pagesize})|merge(additional_route_params|default({}))) }}" title="{{ pagesize }} {{ 'common.pagination.items_per_page'|trans }}">{{ pagesize }}</a>
