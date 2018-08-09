@@ -9,24 +9,21 @@
  * with this source code in the file LICENSE.
  */
 
-namespace jonasarts\Bundle\PaginationBundle\Services;
+namespace jonasarts\Bundle\PaginationBundle\Counter;
 
-use jonasarts\Bundle\PaginationBundle\PageSizeSelector\PageSizeSelector;
-use jonasarts\Bundle\PaginationBundle\PaginationData\PaginationData;
+use jonasarts\Bundle\PaginationBundle\Counter\Counter;
+use jonasarts\Bundle\PaginationBundle\Pagination\PaginationData;
 
 /**
- * PageSizerService class.
+ * CounterRenderer class.
  */
-class PageSizerService
+class CounterRenderer
 {
     // twig template engine
     private $twig;
 
     // default pagination template
-    private $template = 'pagination/pagesize.html.twig';
-
-    // default page sizes
-    private $sizes = array(10, 20, 50, 100);
+    private $template = 'pagination/counter.html.twig';
 
     /**
      * Constructor.
@@ -41,15 +38,14 @@ class PageSizerService
      */
     public function __toString()
     {
-        return 'use getPageSizeSelector() method';
+        return 'use getCounter() method';
     }
 
     /**
-     * Override pagesize template on the fly.
+     * Override template on the fly.
      * 
      * @param string $template
-     *
-     * @return PageSizerService
+     * @return self
      */
     public function setTemplate($template)
     {
@@ -59,42 +55,28 @@ class PageSizerService
     }
 
     /**
-     * @param array $sizes
-     * 
-     * @return PageSizerService
-     */
-    public function setSizes(array $sizes)
-    {
-        $this->sizes = $sizes;
-
-        return $this;
-    }
-
-    /**
      * @param PaginationData $paginationData
      * @param array          $additionalData
-     *
      * @return Closure
      */
-    public function getPageSizeSelector(PaginationData $paginationData, array $additionalData = null)
+    public function getCounter(PaginationData $paginationData, array $additionalData = null)
     {
         if (is_null($additionalData)) {
             $additionalData = array();
         }
 
-        $pagesizeselector = new PageSizeSelector();
+        $counter = new Counter();
 
-        $pagesizeselector->setSizes($this->sizes);
-        $pagesizeselector->setCurrentSize($paginationData->getPageSize());
+        //$counter->
 
         $twig_env = $this->twig;
         $twig_template = $this->template;
 
-        $pagesizeselector->renderer = function ($data) use ($twig_env, $twig_template, $additionalData) {
+        $counter->renderer = function ($data) use ($twig_env, $twig_template, $additionalData) {
             //return var_export($data, true);
-            // common errors to check: is $twig_template file present?
-            //return $twig_template;
-
+            
+            $data = array('pagination' => $data);
+            
             try {
                 return $twig_env->render($twig_template, array_merge($data, $additionalData));
             } catch (\Exception $e) {
@@ -102,6 +84,6 @@ class PageSizerService
             }
         };
 
-        return $pagesizeselector;
+        return $counter;
     }
 }

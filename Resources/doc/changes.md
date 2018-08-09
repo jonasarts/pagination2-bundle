@@ -1,6 +1,17 @@
 CHANGE LOG
 ==========
 
+V 4.0.2
+-------
+
+- Replacing paginationData (array) with PaginationData (class)
+- Removed PaginationHelper class
+
+V 4.0.0
+-------
+
+- Release for Symfony 4.x
+
 V 2.0.0
 -------
 

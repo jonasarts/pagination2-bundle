@@ -1,15 +1,7 @@
-parameters:
-    pagesizer_class: jonasarts\Bundle\PaginationBundle\Services\PageSizerService
-    paginationhelper_class: jonasarts\Bundle\PaginationBundle\Services\PaginationHelperService
-    paginator_class: jonasarts\Bundle\PaginationBundle\Services\PaginatorService
-
 services:
-    pagesizer:
-        class: "%pagesizer_class%"
+    jonasarts\Bundle\PaginationBundle\Counter\CounterRenderer:
         arguments: [ "@twig" ]
-    paginationhelper:
-        class: "%paginationhelper_class%"
-        arguments: [ "@service_container", "@request_stack", "@twig" ]
-    paginator:
-        class: "%paginator_class%"
+    jonasarts\Bundle\PaginationBundle\PageSizeSelector\PageSizeSelectorRenderer:
+        arguments: [ "@twig" ]
+    jonasarts\Bundle\PaginationBundle\Pagination\PaginatonRenderer:
         arguments: [ "@twig" ]

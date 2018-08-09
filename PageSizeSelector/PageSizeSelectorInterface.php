@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace jonasarts\Bundle\PaginationBundle\Interfaces;
+namespace jonasarts\Bundle\PaginationBundle\PageSizeSelector;
 
 /**
  * PageSizeSelector interface.
@@ -29,14 +29,14 @@ interface PageSizeSelectorInterface
     /**
      * For which size currently?
      * 
-     * @return integer
+     * @return int
      */
     public function getCurrentSize();
 
     /**
      * For which size currently?
      * 
-     * @param integer $size
+     * @param int $size
      */
     public function setCurrentSize($size);
 }

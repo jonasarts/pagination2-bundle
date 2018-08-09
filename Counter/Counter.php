@@ -46,7 +46,11 @@ class Counter extends AbstractCounter
         if (!$this->renderer instanceof Closure) {
             $output = 'add a renderer in order to render a template';
         } else {
-            $output = call_user_func($this->renderer, $data);
+            try {
+                $output = call_user_func($this->renderer, $data);
+            } catch(\Exception $e) {
+                return $e->getMessage();
+            }
         }
 
         return $output;
@@ -59,7 +63,11 @@ class Counter extends AbstractCounter
      */
     private function getData()
     {
-        $viewData = $this->getPaginationData()->asArray();
+        $viewData = array(
+            'pageRecords' => 1,
+            'totalRecords' => 2,
+            'totalPages' => 3,
+        );
 
         return $viewData;
     }

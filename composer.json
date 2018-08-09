@@ -14,8 +14,9 @@
     ],
     "require": {
         "php": "^7.1",
-        "symfony/dependency-injection": "^4.0",
-        "twig/twig": "^2.4.4"
+        "symfony/dependency-injection": "^3.0|^4.0",
+        "symfony/security": "^3.0|^4.0",
+        "twig/twig": "^2.4"
     },
     "autoload": {
         "psr-4": { "jonasarts\\Bundle\\PaginationBundle\\": "" }

@@ -28,7 +28,7 @@ class PaginationExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
+        $configuration = new Configuration($container->getParameter('kernel.debug'));
         $config = $this->processConfiguration($configuration, $configs);
 
         // apply globals config
@@ -42,5 +42,15 @@ class PaginationExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+    }
+
+    /**
+     * Define a custom bundle_alias
+     * 
+     * {@inheritdoc}
+     */
+    public function getAlias()
+    {
+        return 'pagination';
     }
 }

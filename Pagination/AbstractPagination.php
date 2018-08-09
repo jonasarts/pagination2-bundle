@@ -14,7 +14,7 @@ namespace jonasarts\Bundle\PaginationBundle\Pagination;
 use Countable;
 use Iterator;
 use ArrayAccess;
-use jonasarts\Bundle\PaginationBundle\Interfaces\PaginationInterface;
+use jonasarts\Bundle\PaginationBundle\Pagination\PaginationInterface;
 
 /**
  * AbstractPagination class.
@@ -31,12 +31,16 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
      */
     private $items = array();
 
+    //
     private $currentPageNumber;
 
+    //
     private $itemsPerPage;
 
+    //
     private $pagesInRange;
 
+    //
     private $totalItemsCount;
 
     /**
@@ -53,6 +57,9 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
 
     /**
      * {@inheritdoc}
+     * 
+     * @param int $pageNumber
+     * @return self
      * 
      * @see PaginationInterface
      */
@@ -78,6 +85,9 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
     /**
      * {@inheritdoc}
      * 
+     * @param int $itemsPerPage
+     * @return self
+     * 
      * @see PaginationInterface
      */
     public function setPageSize($itemsPerPage)
@@ -88,7 +98,9 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
     }
 
     /**
-     * Get numbers of pages in sliding view.
+     * Get number of pages in sliding view.
+     * 
+     * @return int
      */
     public function getPageRange()
     {
@@ -96,9 +108,10 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
     }
 
     /**
-     * Get numbers of pages in sliding view.
+     * Get number of pages in sliding view.
      * 
      * @param int $range
+     * @return self
      */
     public function setPageRange($range)
     {
@@ -109,8 +122,6 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
 
     /**
      * {@inheritdoc}
-     *
-     * @return int
      * 
      * @see PaginationInterface
      */
@@ -134,7 +145,7 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
     /**
      * Get current items.
      *
-     * @return array
+     * {@inheritdoc}
      * 
      * @see PaginationInterface
      */
@@ -220,6 +231,8 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
     }
 
     /**
+     * {@inheritdoc}
+     * 
      * @see ArrayAccess
      */
     public function offsetExists($offset)
@@ -228,6 +241,8 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
     }
 
     /**
+     * {@inheritdoc}
+     * 
      * @see ArrayAccess
      */
     public function offsetGet($offset)
@@ -236,6 +251,8 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
     }
 
     /**
+     * {@inheritdoc}
+     * 
      * @see ArrayAccess
      */
     public function offsetSet($offset, $value)
@@ -248,6 +265,8 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
     }
 
     /**
+     * {@inheritdoc}
+     * 
      * @see ArrayAccess
      */
     public function offsetUnset($offset)

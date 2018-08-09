@@ -2,7 +2,7 @@
 {% set route_params = app.request.query.all %}
 
 <span class="page-navigation">
-{% for pagesize in pagination.pageSizer %}
+{% for pagesize in pagination.pageSizes %}
     {% if pagesize == paginationInfo.pageSize %}
         <span class="text-danger">{{ pagesize }}</span>
     {% else %}

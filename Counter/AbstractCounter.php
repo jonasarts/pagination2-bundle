@@ -11,14 +11,20 @@
 
 namespace jonasarts\Bundle\PaginationBundle\Counter;
 
-use jonasarts\Bundle\PaginationBundle\Interfaces\CounterInterface;
-use jonasarts\Bundle\PaginationBundle\PaginationData\PaginationData;
+use jonasarts\Bundle\PaginationBundle\Counter\CounterInterface;
+use jonasarts\Bundle\PaginationBundle\Pagination\PaginationData;
 
 /**
  * AbstractCounter class.
  */
 abstract class AbstractCounter implements CounterInterface
 {
+    /*
+    'pageRecords' => 1,
+    'totalRecords' => 2,
+    'totalPages' => 3,
+    */
+
     /**
      * @var PaginationData
      */

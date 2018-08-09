@@ -9,15 +9,21 @@
  * with this source code in the file LICENSE.
  */
 
-namespace jonasarts\Bundle\PaginationBundle\Interfaces;
+namespace jonasarts\Bundle\PaginationBundle\Counter;
 
-use jonasarts\Bundle\PaginationBundle\PaginationData\PaginationData;
+use jonasarts\Bundle\PaginationBundle\Pagination\PaginationData;
 
 /**
  * Counter interface.
  */
 interface CounterInterface
 {
+    /*
+    'pageRecords' => 1,
+    'totalRecords' => 2,
+    'totalPages' => 3,
+    */
+    
     /**
      * Counter data to use.
      * 

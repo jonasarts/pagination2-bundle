@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace jonasarts\Bundle\PaginationBundle\Interfaces;
+namespace jonasarts\Bundle\PaginationBundle\Pagination;
 
 /**
  * Pagination interface.
@@ -19,56 +19,60 @@ interface PaginationInterface
     /**
      * On which page currently?
      * 
-     * @return integer
+     * @return int
      */
     public function getCurrentPage();
 
     /**
      * On which page currently?
      * 
-     * @param integer $pageNumber
+     * @param int $pageNumber
+     * @return self
      */
     public function setCurrentPage($pageNumber);
 
     /**
      * How many items per page?
      * 
-     * @return integer
+     * @return int
      */
     public function getPageSize();
 
     /**
      * How many items per page?
      * 
-     * @param integer $itemsPerPage
+     * @param int $itemsPerPage
+     * @return self
      */
     public function setPageSize($itemsPerPage);
 
     /**
      * How many pages in sliding navigation.
      * 
-     * @return integer
+     * @return int
      */
     public function getPageRange();
 
     /**
      * How many pages in sliding navigation.
      * 
-     * @param integer $pagesInRange
+     * @param int $pagesInRange
+     * @return self
      */
     public function setPageRange($pagesInRange);
 
     /**
      * How many items in total?
      * 
-     * @return integer
+     * @return int
      */
     public function getTotalItemsCount();
 
     /**
      * How many items in total?
      * 
-     * @param integer $total
+     * @param int $total
+     * @return self
      */
     public function setTotalItemsCount($total);
 
@@ -83,6 +87,7 @@ interface PaginationInterface
      * The items (required for Countable, Iterator, ArrayAccess).
      * 
      * @param mixed $items
+     * @return self
      */
     public function setItems($items);
 }

@@ -48,7 +48,11 @@ class PageSizeSelector extends AbstractPageSizeSelector
         if (!$this->renderer instanceof Closure) {
             $output = 'add a renderer in order to render a template';
         } else {
-            $output = call_user_func($this->renderer, $data);
+            try {
+                $output = call_user_func($this->renderer, $data);
+            } catch (\Exception $e) {
+                return $e->getMessage();
+            }
         }
 
         return $output;
@@ -62,8 +66,8 @@ class PageSizeSelector extends AbstractPageSizeSelector
     private function getData()
     {
         $viewData = array(
-            'sizes' => $this->getSizes(),
-            'current' => $this->getCurrentSize(),
+            'pageSizes' => $this->getSizes(),
+            'currentSize' => $this->getCurrentSize(),
         );
 
         return $viewData;

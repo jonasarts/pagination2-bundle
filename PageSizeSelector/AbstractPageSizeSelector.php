@@ -11,7 +11,7 @@
 
 namespace jonasarts\Bundle\PaginationBundle\PageSizeSelector;
 
-use jonasarts\Bundle\PaginationBundle\Interfaces\PageSizeSelectorInterface;
+use jonasarts\Bundle\PaginationBundle\PageSizeSelector\PageSizeSelectorInterface;
 
 /**
  * AbstractPageSizeSelector class.
@@ -24,12 +24,12 @@ abstract class AbstractPageSizeSelector implements PageSizeSelectorInterface
     private $sizes;
 
     /**
-     * @var integer
+     * @var int
      */
     private $currentSize;
 
     /**
-     * 
+     * Constructor.
      */
     public function __construct()
     {
@@ -37,7 +37,7 @@ abstract class AbstractPageSizeSelector implements PageSizeSelectorInterface
     }
 
     /**
-     * 
+     * @return array
      */
     public function getSizes()
     {
@@ -45,7 +45,8 @@ abstract class AbstractPageSizeSelector implements PageSizeSelectorInterface
     }
 
     /**
-     * 
+     * @param array $sizes
+     * @return self
      */
     public function setSizes(array $sizes)
     {
@@ -55,7 +56,7 @@ abstract class AbstractPageSizeSelector implements PageSizeSelectorInterface
     }
 
     /**
-     * 
+     * @return int
      */
     public function getCurrentSize()
     {
@@ -63,7 +64,8 @@ abstract class AbstractPageSizeSelector implements PageSizeSelectorInterface
     }
 
     /**
-     * 
+     * @param int $size
+     * @return self
      */
     public function setCurrentSize($size)
     {
