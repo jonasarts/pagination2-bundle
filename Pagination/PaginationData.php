@@ -333,35 +333,35 @@ class PaginationData
 
     public function getPages(): ?array
     {
-        $this->calculatePagination();
+        $this->calculatePaginationData();
 
         return $this->data['pages'];
     }
 
     public function getPaginationRangeStartPage(): ?int
     {
-        $this->calculatePagination();
+        $this->calculatePaginationData();
 
         return $this->data['paginationRangeStartPage'];
     }
 
     public function getPaginationRangeEndPage(): ?int
     {
-        $this->calculatePagination();
+        $this->calculatePaginationData();
 
         return $this->data['paginationRangeEndPage'];
     }
 
     public function paginationRangeIncludesFirst(): ?bool
     {
-        $this->calculatePagination();
+        $this->calculatePaginationData();
 
         return $this->data['paginationRangeIncludesFirst'];
     }
 
     public function paginationRangeIncludesLast(): ?bool
     {
-        $this->calculatePagination();
+        $this->calculatePaginationData();
 
         return $this->data['paginationRangeIncludesLast'];
     }
