@@ -1,6 +1,11 @@
 CHANGE LOG
 ==========
 
+V 4.0.8
+-------
+
+- Updated TreeBuilder to support Symfony 5.0
+
 V 4.0.2
 -------
 
