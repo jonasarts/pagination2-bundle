@@ -33,14 +33,14 @@ class Configuration implements ConfigurationInterface
     {
         $this->debug = (Boolean) $debug;
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('pagination');
+        $treeBuilder = new TreeBuilder('pagination');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
