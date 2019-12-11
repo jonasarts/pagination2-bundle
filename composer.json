@@ -13,10 +13,10 @@
         }
     ],
     "require": {
-        "php": "^7.1.3",
-        "symfony/dependency-injection": "^3.0|^4.0",
-        "symfony/security": "^3.0|^4.0",
-        "twig/twig": "^2.4"
+        "php": "^7.2",
+        "symfony/dependency-injection": "^5.0",
+        "symfony/security": "^5.0",
+        "twig/twig": "^3.0"
     },
     "autoload": {
         "psr-4": { "jonasarts\\Bundle\\PaginationBundle\\": "" }
