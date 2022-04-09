@@ -14,12 +14,11 @@
     ],
     "require": {
         "php": ">=7.2.5",
-        "symfony/config": "*",
-        "symfony/dependency-injection": "*",
-        "symfony/security-bundle": "^5.0",
+        "symfony/config": "^5.0|^6.0",
+        "symfony/dependency-injection": "^5.0|^6.0",
         "twig/twig": "^3.0"
     },
     "autoload": {
-        "psr-4": { "jonasarts\\Bundle\\PaginationBundle\\": "" }
+        "psr-4": { "jonasarts\\Bundle\\PaginationBundle\\": "src/" }
     }
 }
