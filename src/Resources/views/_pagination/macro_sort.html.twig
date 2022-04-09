@@ -1,0 +1,31 @@
+{% macro column(current_sort_name, current_sort_direction, field_name, caption, additional_route_params) %}
+{% apply spaceless %}
+{% set current_sort_name = current_sort_name|split('.')|last %}
+    {% if current_sort_name == field_name %}
+        {% if current_sort_direction == 'asc' %}
+            {% set sort_field_caret = '&nbsp;<i class="fa fa-sort-up"></i>' %}
+            {% set sort_field =  field_name ~ '.desc'%}
+        {% elseif current_sort_direction == 'desc' %}
+            {% set sort_field_caret = '&nbsp;<i class="fa fa-sort-down"></i>' %}
+            {% set sort_field =  field_name ~ '.none'%}
+        {% else %}
+            {% set sort_field_caret = '&nbsp;<i class="fa fa-sort"></i>' %}
+            {% set sort_field = field_name ~ '.asc' %}
+        {% endif %}
+    {% else %}
+        {% set sort_field_caret = '&nbsp;<i class="fa fa-sort"></i>' %}
+        {% set sort_field = field_name ~ '.asc' %}
+    {% endif %}
+
+    {% set route = app.request.attributes.get('_route') %}
+    {% set route_params = app.request.query.all %}
+
+    {% for k,v in app.request.attributes.get('_route_params') %}
+        {% if k|first != "_" %}
+            {% set route_params = route_params|merge({(k):v}) %}
+        {% endif %}
+    {% endfor %}
+
+    <a class="text-nowrap" href="{{ path(route, route_params|merge({ 'sort': sort_field })|merge(additional_route_params|default({}))) }}">{{ caption }}{{ sort_field_caret|default('')|raw }}</a>
+{% endapply %}
+{% endmacro %}

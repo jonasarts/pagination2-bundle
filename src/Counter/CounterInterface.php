@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the jonasarts Pagination bundle package.
  *
@@ -23,18 +25,18 @@ interface CounterInterface
     'totalRecords' => 2,
     'totalPages' => 3,
     */
-    
-    /**
-     * Counter data to use.
-     * 
-     * @return PaginationData
-     */
-    public function getPaginationData();
 
     /**
      * Counter data to use.
-     * 
+     *
+     * @return PaginationData
+     */
+    public function getPaginationData(): PaginationData;
+
+    /**
+     * Counter data to use.
+     *
      * @param PaginationData $paginationData
      */
-    public function setPaginationData(PaginationData $paginationData);
+    public function setPaginationData(PaginationData $paginationData): self;
 }

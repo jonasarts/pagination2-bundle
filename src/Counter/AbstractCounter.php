@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the jonasarts Pagination bundle package.
  *
@@ -33,17 +35,16 @@ abstract class AbstractCounter implements CounterInterface
     /**
      * @return PaginationData
      */
-    public function getPaginationData()
+    public function getPaginationData(): PaginationData
     {
         return $this->pagination_data;
     }
 
     /**
      * @param PaginationData $paginationData
-     *
-     * @return AbstractCounter
+     * @return self
      */
-    public function setPaginationData(PaginationData $paginationData)
+    public function setPaginationData(PaginationData $paginationData): self
     {
         $this->pagination_data = $paginationData;
 

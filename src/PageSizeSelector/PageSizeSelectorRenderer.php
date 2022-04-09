@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the jonasarts Pagination bundle package.
  *
@@ -9,26 +11,26 @@
  * with this source code in the file LICENSE.
  */
 
-namespace jonasarts\Bundle\PaginationBundle\Counter;
+namespace jonasarts\Bundle\PaginationBundle\PageSizeSelector;
 
-use jonasarts\Bundle\PaginationBundle\Counter\Counter;
+use jonasarts\Bundle\PaginationBundle\PageSizeSelector\PageSizeSelector;
 use jonasarts\Bundle\PaginationBundle\Pagination\PaginationData;
 
 /**
- * CounterRenderer class.
+ * PageSizeSelectorRenderer class.
  */
-class CounterRenderer
+class PageSizeSelectorRenderer
 {
     // twig template engine
     private $twig;
 
     // default pagination template
-    private $template = 'pagination/counter.html.twig';
+    private $template = 'pagination/pagesize.html.twig';
 
     /**
      * Constructor.
      */
-    public function __construct(\Twig_Environment $twig)
+    public function __construct(\Twig\Environment $twig)
     {
         $this->twig = $twig;
     }
@@ -36,18 +38,18 @@ class CounterRenderer
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
-        return 'use getCounter() method';
+        return 'use getPageSizeSelector() method';
     }
 
     /**
      * Override template on the fly.
-     * 
+     *
      * @param string $template
      * @return self
      */
-    public function setTemplate($template)
+    public function setTemplate(string $template): self
     {
         $this->template = $template;
 
@@ -56,27 +58,28 @@ class CounterRenderer
 
     /**
      * @param PaginationData $paginationData
-     * @param array          $additionalData
-     * @return Closure
+     * @param array|null     $additionalData
+     * @return \Closure
      */
-    public function getCounter(PaginationData $paginationData, array $additionalData = null)
+    public function getPageSizeSelector(PaginationData $paginationData, array $additionalData = null): PageSizeSelector
     {
         if (is_null($additionalData)) {
             $additionalData = array();
         }
 
-        $counter = new Counter();
+        $pagesizeselector = new PageSizeSelector();
 
-        //$counter->
+        $pagesizeselector->setSizes($paginationData->getPageSizes());
+        $pagesizeselector->setCurrentSize($paginationData->getPageSize());
 
         $twig_env = $this->twig;
         $twig_template = $this->template;
 
-        $counter->renderer = function ($data) use ($twig_env, $twig_template, $additionalData) {
+        $pagesizeselector->renderer = function ($data) use ($twig_env, $twig_template, $additionalData) {
             //return var_export($data, true);
-            
+
             $data = array('pagination' => $data);
-            
+
             try {
                 return $twig_env->render($twig_template, array_merge($data, $additionalData));
             } catch (\Exception $e) {
@@ -84,6 +87,6 @@ class CounterRenderer
             }
         };
 
-        return $counter;
+        return $pagesizeselector;
     }
 }

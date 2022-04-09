@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the jonasarts Pagination bundle package.
  *
@@ -41,15 +43,15 @@ class PaginationExtension extends Extension
         $container->setParameter('pagination.counter.template', $config['counter']['template']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        $loader->load('services.yaml');
     }
 
     /**
      * Define a custom bundle_alias
-     * 
+     *
      * {@inheritdoc}
      */
-    public function getAlias()
+    public function getAlias(): string
     {
         return 'pagination';
     }

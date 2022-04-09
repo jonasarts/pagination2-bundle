@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the jonasarts Pagination bundle package.
  *
@@ -23,7 +25,7 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
 {
     /**
      * items is used by Countable, Iterator, ArrayAccess; contains only the itemPerPage items.
-     * 
+     *
      * for pagination calculations:
      * - currentPageNumber is the number of the page for which the pagination window is calculated
      * - itemsPerPage is the number of items on one page
@@ -31,39 +33,47 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
      */
     private $items = array();
 
-    //
+    /**
+     * @var int
+     */
     private $currentPageNumber;
 
-    //
+    /**
+     * @var int
+     */
     private $itemsPerPage;
 
-    //
+    /**
+     * @var int
+     */
     private $pagesInRange;
 
-    //
-    private $totalItemsCount;
+    /**
+     * @var int
+     */
+    private $totalRecords;
 
     /**
      * Get currently used page number.
      *
      * @return int
-     * 
+     *
      * @see PaginationInterface
      */
-    public function getCurrentPage()
+    public function getCurrentPage(): int
     {
         return $this->currentPageNumber;
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @param int $pageNumber
      * @return self
-     * 
+     *
      * @see PaginationInterface
      */
-    public function setCurrentPage($pageNumber)
+    public function setCurrentPage(int $pageNumber): self
     {
         $this->currentPageNumber = $pageNumber;
 
@@ -74,23 +84,23 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
      * Get number of items per page.
      *
      * @return int
-     * 
+     *
      * @see PaginationInterface
      */
-    public function getPageSize()
+    public function getPageSize(): int
     {
         return $this->itemsPerPage;
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @param int $itemsPerPage
      * @return self
-     * 
+     *
      * @see PaginationInterface
      */
-    public function setPageSize($itemsPerPage)
+    public function setPageSize(int $itemsPerPage): self
     {
         $this->itemsPerPage = $itemsPerPage;
 
@@ -99,21 +109,21 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
 
     /**
      * Get number of pages in sliding view.
-     * 
+     *
      * @return int
      */
-    public function getPageRange()
+    public function getPageRangeSize(): int
     {
         return $this->pagesInRange;
     }
 
     /**
      * Get number of pages in sliding view.
-     * 
+     *
      * @param int $range
      * @return self
      */
-    public function setPageRange($range)
+    public function setPageRangeSize(int $range): self
     {
         $this->pagesInRange = intval(abs($range));
 
@@ -122,22 +132,22 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see PaginationInterface
      */
-    public function getTotalItemsCount()
+    public function getTotalRecords(): int
     {
-        return $this->totalItemsCount;
+        return $this->totalRecords;
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see PaginationInterface
      */
-    public function setTotalItemsCount($total)
+    public function setTotalRecords(int $total): self
     {
-        $this->totalItemsCount = $total;
+        $this->totalRecords = $total;
 
         return $this;
     }
@@ -146,7 +156,7 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
      * Get current items.
      *
      * {@inheritdoc}
-     * 
+     *
      * @see PaginationInterface
      */
     public function getItems()
@@ -156,10 +166,10 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see PaginationInterface
      */
-    public function setItems($items)
+    public function setItems($items): self
     {
         if (!is_array($items) && !$items instanceof \Traversable) {
             throw new \UnexpectedValueException('Items must be an array type');
@@ -172,90 +182,90 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see Countable
      */
-    public function count()
+    public function count(): int
     {
         return count($this->items);
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see Iterator
      */
-    public function current()
+    public function current(): mixed
     {
         return current($this->items);
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see Iterator
      */
-    public function key()
+    public function key(): mixed
     {
         return key($this->items);
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see Iterator
      */
-    public function next()
+    public function next(): void
     {
         next($this->items);
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see Iterator
      */
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->items);
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see Iterator
      */
-    public function valid()
+    public function valid(): bool
     {
         return key($this->items) !== null;
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see ArrayAccess
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->items);
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see ArrayAccess
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->items[$offset];
     }
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see ArrayAccess
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (null === $offset) {
             $this->items[] = $value;
@@ -266,10 +276,10 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @see ArrayAccess
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->items[$offset]);
     }

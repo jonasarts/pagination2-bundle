@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the jonasarts Pagination bundle package.
  *
@@ -39,7 +41,7 @@ abstract class AbstractPageSizeSelector implements PageSizeSelectorInterface
     /**
      * @return array
      */
-    public function getSizes()
+    public function getSizes(): array
     {
         return $this->sizes;
     }
@@ -48,7 +50,7 @@ abstract class AbstractPageSizeSelector implements PageSizeSelectorInterface
      * @param array $sizes
      * @return self
      */
-    public function setSizes(array $sizes)
+    public function setSizes(array $sizes): self
     {
         $this->sizes = $sizes;
 
@@ -58,7 +60,7 @@ abstract class AbstractPageSizeSelector implements PageSizeSelectorInterface
     /**
      * @return int
      */
-    public function getCurrentSize()
+    public function getCurrentSize(): int
     {
         return $this->currentSize;
     }
@@ -67,7 +69,7 @@ abstract class AbstractPageSizeSelector implements PageSizeSelectorInterface
      * @param int $size
      * @return self
      */
-    public function setCurrentSize($size)
+    public function setCurrentSize(int $size): self
     {
         $this->currentSize = $size;
 

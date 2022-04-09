@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the jonasarts Pagination bundle package.
  *
@@ -28,18 +30,18 @@ class Pagination extends AbstractPagination
     /**
      * Constructor.
      */
-    public function __construct(array $items, $totalItemsCount)
+    public function __construct(array $items, $totalRecords)
     {
         $this->setItems($items);
-        $this->setTotalItemsCount($totalItemsCount);
+        $this->setTotalRecords($totalRecords);
     }
 
     /**
      * Renders the pagination.
-     * 
+     *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $data = $this->getData();
 
@@ -60,14 +62,14 @@ class Pagination extends AbstractPagination
 
     /**
      * Populates an pagination 'viewdata' array.
-     *  
+     *
      * @return array
      */
-    private function getData()
+    private function getData(): array
     {
         // how many pages fit into all items?
         if ($this->getPageSize() > 0) {
-            $page_count = intval(ceil($this->getTotalItemsCount() / $this->getPageSize()));
+            $page_count = intval(ceil($this->getTotalRecords() / $this->getPageSize()));
         } else {
             $page_count = 1;
         }
@@ -102,7 +104,7 @@ class Pagination extends AbstractPagination
             'pageSize' => $this->getPageSize(),
             'first' => 1,
             'pageCount' => $page_count,
-            'totalCount' => $this->getTotalItemsCount(),
+            'totalCount' => $this->getTotalRecords(),
         );
         //$viewData = array_merge($viewData, $this->paginatorOptions, $this->customParameters);
 
@@ -125,7 +127,7 @@ class Pagination extends AbstractPagination
 
                 $viewData['currentItemCount'] = $this->getPageSize();
             } else {
-                $viewData['currentItemCount'] = $this->getTotalItemsCount() - ($viewData['firstItemNumber'] - 1);
+                $viewData['currentItemCount'] = $this->getTotalRecords() - ($viewData['firstItemNumber'] - 1);
             }
             $viewData['lastItemNumber'] = ($viewData['firstItemNumber'] - 1) + $viewData['currentItemCount']; // last item on this page
         }

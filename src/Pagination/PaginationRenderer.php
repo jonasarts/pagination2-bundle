@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the jonasarts Pagination bundle package.
  *
@@ -28,7 +30,7 @@ class PaginationRenderer
     /**
      * Constructor.
      */
-    public function __construct(\Twig_Environment $twig)
+    public function __construct(\Twig\Environment $twig)
     {
         $this->twig = $twig;
     }
@@ -36,18 +38,18 @@ class PaginationRenderer
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return 'use getPagination() method';
     }
 
     /**
      * Override template on the fly.
-     * 
+     *
      * @param string $template
      * @return self
      */
-    public function setTemplate($template)
+    public function setTemplate(string $template): self
     {
         $this->template = $template;
 
@@ -57,10 +59,10 @@ class PaginationRenderer
     /**
      * @param array          $entities
      * @param PaginationData $paginationData
-     * @param array          $additionalData
-     * @return Closure
+     * @param array|null     $additionalData
+     * @return \Closure
      */
-    public function getPagination(array $entities, PaginationData $paginationData, array $additionalData = null)
+    public function getPagination(array $entities, PaginationData $paginationData, array $additionalData = null): Pagination
     {
         if (is_null($entities)) {
             $entities = array();
@@ -69,10 +71,10 @@ class PaginationRenderer
             $additionalData = array();
         }
 
-        $pagination = new Pagination($entities, $paginationData->getTotalItemsCount());
+        $pagination = new Pagination($entities, $paginationData->getTotalRecords());
 
         $pagination->setCurrentPage($paginationData->getPageIndex());
-        $pagination->setPageRange($paginationData->getPageRange());
+        $pagination->setPageRangeSize($paginationData->getRangeSize());
         $pagination->setPageSize($paginationData->getPageSize());
 
         $twig_env = $this->twig;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the jonasarts Pagination bundle package.
  *
@@ -36,10 +38,10 @@ class PageSizeSelector extends AbstractPageSizeSelector
 
     /**
      * Renders the pagination.
-     * 
+     *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $data = $this->getData();
 
@@ -60,10 +62,10 @@ class PageSizeSelector extends AbstractPageSizeSelector
 
     /**
      * Populates an pagination 'viewdata' array.
-     *  
+     *
      * @return array
      */
-    private function getData()
+    private function getData(): array
     {
         $viewData = array(
             'pageSizes' => $this->getSizes(),

@@ -1,0 +1,12 @@
+{% set route = app.request.attributes.get('_route') %}
+{% set route_params = app.request.query.all %}
+
+<span class="page-navigation">
+{% for pagesize in pagination.pageSizes %}
+    {% if pagesize == pagination.pageSize %}
+        <span class="active">{{ pagesize }}</span>
+    {% else %}
+        <a href="{{ path(route, route_params|merge({page: 0, pagesize: pagesize})|merge(additional_route_params|default({}))) }}" title="{{ pagesize }} {{ 'common.pagination.items_per_page'|trans }}">{{ pagesize }}</a>
+    {% endif %}
+{% endfor %}
+</span>
