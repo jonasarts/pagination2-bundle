@@ -62,7 +62,7 @@ class PaginationData
     /**
      * @var array
      */
-    private $data;
+    private array $data;
 
     /**
      * Constructor.
@@ -114,7 +114,7 @@ class PaginationData
     }
 
     /**
-     * @param array $pageSize
+     * @param array $pageSizes
      * @return self
      */
     public function setPageSizes(array $pageSizes): self
@@ -321,7 +321,7 @@ class PaginationData
      * get calculated pagination data values
      */
 
-    public function resetPaginationData()
+    public function resetPaginationData(): void
     {
         $this->data['pages'] = null;
 
@@ -370,10 +370,11 @@ class PaginationData
 
     /**
      * Calculate some 'geometry' paginaton data, after doctrine paginator has loaded the entities !
-     * 
+     *
      * @return void
+     * @throws \Exception
      */
-    private function calculatePaginationData()
+    private function calculatePaginationData(): void
     {
         // already calculated ?
         if (!empty($this->data['pages'])) {

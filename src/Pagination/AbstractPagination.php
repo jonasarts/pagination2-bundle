@@ -31,27 +31,27 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
      * - itemsPerPage is the number of items on one page
      * - totalItemsCount is the number of all items (NOT count, count is max. itemsPerPage!)
      */
-    private $items = array();
+    private array $items = array();
 
     /**
      * @var int
      */
-    private $currentPageNumber;
+    private int $currentPageNumber;
 
     /**
      * @var int
      */
-    private $itemsPerPage;
+    private int $itemsPerPage;
 
     /**
      * @var int
      */
-    private $pagesInRange;
+    private int $pagesInRange;
 
     /**
      * @var int
      */
-    private $totalRecords;
+    private int $totalRecords;
 
     /**
      * Get currently used page number.
@@ -205,7 +205,7 @@ abstract class AbstractPagination implements PaginationInterface, Countable, Ite
      *
      * @see Iterator
      */
-    public function key(): mixed
+    public function key(): string|int|null
     {
         return key($this->items);
     }

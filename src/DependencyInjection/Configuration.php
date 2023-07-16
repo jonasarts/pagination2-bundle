@@ -24,14 +24,14 @@ class Configuration implements ConfigurationInterface
     /**
      * @var bool
      */
-    private $debug;
+    private bool $debug;
 
     /**
      * Constructor
      *
      * @param Boolean $debug Whether to use the debug mode
      */
-    public function __construct($debug)
+    public function __construct(bool $debug)
     {
         $this->debug = (Boolean) $debug;
     }

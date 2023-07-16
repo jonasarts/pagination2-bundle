@@ -22,10 +22,10 @@ use jonasarts\Bundle\PaginationBundle\Pagination\PaginationData;
 class PageSizeSelectorRenderer
 {
     // twig template engine
-    private $twig;
+    private \Twig\Environment $twig;
 
     // default pagination template
-    private $template = 'pagination/pagesize.html.twig';
+    private string $template = 'pagination/pagesize.html.twig';
 
     /**
      * Constructor.
@@ -58,8 +58,8 @@ class PageSizeSelectorRenderer
 
     /**
      * @param PaginationData $paginationData
-     * @param array|null     $additionalData
-     * @return \Closure
+     * @param array|null $additionalData
+     * @return PageSizeSelector
      */
     public function getPageSizeSelector(PaginationData $paginationData, array $additionalData = null): PageSizeSelector
     {

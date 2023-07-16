@@ -3,5 +3,5 @@ services:
         arguments: [ "@twig" ]
     jonasarts\Bundle\PaginationBundle\PageSizeSelector\PageSizeSelectorRenderer:
         arguments: [ "@twig" ]
-    jonasarts\Bundle\PaginationBundle\Pagination\PaginatonRenderer:
+    jonasarts\Bundle\PaginationBundle\Pagination\PaginationRenderer:
         arguments: [ "@twig" ]

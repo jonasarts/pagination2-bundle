@@ -30,7 +30,7 @@ abstract class AbstractCounter implements CounterInterface
     /**
      * @var PaginationData
      */
-    private $pagination_data;
+    private PaginationData $pagination_data;
 
     /**
      * @return PaginationData

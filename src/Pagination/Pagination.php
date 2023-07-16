@@ -25,7 +25,7 @@ class Pagination extends AbstractPagination
      *
      * @var Closure
      */
-    public $renderer;
+    public Closure $renderer;
 
     /**
      * Constructor.

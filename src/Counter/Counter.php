@@ -25,7 +25,7 @@ class Counter extends AbstractCounter
      *
      * @var Closure
      */
-    public $renderer;
+    public Closure $renderer;
 
     /**
      * Constructor.

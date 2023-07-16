@@ -6,31 +6,15 @@ Setting up the bundle
 Execute this console command in your project:
 
 ``` bash
-$ composer require jonasarts/pagination2-bundle
+composer require jonasarts/pagination2-bundle
 ```
 
 ## Enable the bundle
 
-Register the bundle in the kernel:
+Composer enables the bundle for you in config/bundles.php
 
-```php
-// app/AppKernel.php
-
-// ...
-class AppKernel extends Kernel
-{
-    // ...
-    public function registerBundles()
-    {
-        $bundles = array(
-            // ...
-            new jonasarts\Bundle\PaginationBundle\PaginationBundle(),
-        );
-
-    // ...
-    }
-}
-```
+You can now use the
+`jonasarts\Bundle\PaginationBundle\Pagination\PaginationInterface` class.
 
 ## Configuration options
 

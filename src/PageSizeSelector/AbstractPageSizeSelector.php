@@ -23,12 +23,12 @@ abstract class AbstractPageSizeSelector implements PageSizeSelectorInterface
     /**
      * @var array
      */
-    private $sizes;
+    private array $sizes;
 
     /**
      * @var int
      */
-    private $currentSize;
+    private int $currentSize;
 
     /**
      * Constructor.

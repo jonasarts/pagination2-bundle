@@ -22,10 +22,10 @@ use jonasarts\Bundle\PaginationBundle\Pagination\PaginationData;
 class PaginationRenderer
 {
     // twig template engine
-    private $twig;
+    private \Twig\Environment $twig;
 
     // default pagination template
-    private $template = 'pagination/sliding.html.twig';
+    private string $template = 'pagination/sliding.html.twig';
 
     /**
      * Constructor.
@@ -57,10 +57,10 @@ class PaginationRenderer
     }
 
     /**
-     * @param array          $entities
+     * @param array $entities
      * @param PaginationData $paginationData
-     * @param array|null     $additionalData
-     * @return \Closure
+     * @param array|null $additionalData
+     * @return Pagination
      */
     public function getPagination(array $entities, PaginationData $paginationData, array $additionalData = null): Pagination
     {

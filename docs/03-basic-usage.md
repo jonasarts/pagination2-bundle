@@ -17,15 +17,13 @@ The method ``Pagination.getPagination()`` will return a pagination object with f
 To render a pagination, just output the pagination object returned by the Pagination service.
 
 ```php
-    $pm = $this->get('pagination');
-
+    // PaginationInterface $pm
 
 ```
 
 To register a different pagination twig template:
 
 ```php
-    $pm = $this->get('pagination');
     $pm->setTemplate('my/custom/path/to/paginationTwigTemplate.html.twig');
 
     // ...
@@ -38,9 +36,8 @@ This is how a controller action using a pagination manager may look like:
      * @Route("/", name="index")
      * @Template()
      */
-    public function indexAction()
+    public function index(PaginationInterface $pm)
     {
-        $pm = $this->get('pagination'); // the pagination service
         $request = $this->getRequest(); // the current request
 
 

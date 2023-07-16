@@ -25,7 +25,7 @@ class PageSizeSelector extends AbstractPageSizeSelector
      *
      * @var Closure
      */
-    public $renderer;
+    public Closure $renderer;
 
     /**
      * Constructor.

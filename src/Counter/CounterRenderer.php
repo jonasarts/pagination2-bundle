@@ -22,10 +22,10 @@ use jonasarts\Bundle\PaginationBundle\Pagination\PaginationData;
 class CounterRenderer
 {
     // twig template engine
-    private $twig;
+    private \Twig\Environment $twig;
 
     // default pagination template
-    private $template = 'pagination/counter.html.twig';
+    private string $template = 'pagination/counter.html.twig';
 
     /**
      * Constructor.

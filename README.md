@@ -10,7 +10,7 @@ This bundle provides a simplified pagination system for the symfony framework.
 Installation
 ------------
 
-All the installation instructions are located in the [documentation](https://github.com/jonasarts/pagination2-bundle/blob/master/Resources/doc/index.md).
+All the installation instructions are located in the [documentation](https://github.com/jonasarts/pagination2-bundle/blob/master/docs/index.md).
 
 License
 -------
