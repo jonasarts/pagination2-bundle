@@ -67,7 +67,7 @@ class Pagination extends AbstractPagination
      */
     private function getData(): array
     {
-        // how many pages fit into all items?
+        // how many pages for all items?
         if ($this->getPageSize() > 0) {
             $page_count = intval(ceil($this->getTotalRecords() / $this->getPageSize()));
         } else {
@@ -76,7 +76,7 @@ class Pagination extends AbstractPagination
         // current page
         $current = $this->getCurrentPage();
         // page range
-        $range = $this->getPageRange();
+        $range = $this->getPageRangeSize();
 
         // range = how many pages around the current page?
         if ($range > $page_count) {

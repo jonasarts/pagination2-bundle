@@ -79,10 +79,12 @@ class PaginationData
             'total_records' => 0,
             'total_pages' => 0,
 
+            'sort' => [], // new sort field array [['field' => 'direction],['field' => 'direction']]
             'sort_field' => null,
             'sort_direction' => null,
         );
 
+        $this->data['sqlSort'] = []; // new sort field array [['field' => 'direction],['field' => 'direction']]
         $this->data['sqlSortField'] = null;
         $this->data['sqlSortDirection'] = null;
         $this->data['sqlSearchString'] = null;
@@ -241,11 +243,55 @@ class PaginationData
      * ui sort
      */
 
+    /**
+     * @return array
+     */
+    public function getSort(): array
+    {
+        return $this->data['sort'];
+    }
+
+    /**
+     * @param array $sort
+     * @return $this
+     */
+    public function setSort(array $sort): self
+    {
+        $this->data['sort'] = $sort;
+
+        return $this;
+    }
+
+    public function addSort(string $field, string $direction): self
+    {
+        $this->data['sort'][] = [$field => $direction];
+
+        return $this;
+    }
+
+    public function resetSort(): self
+    {
+        $this->data['sort'] = [];
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     *
+     * @deprecated
+     */
     public function getSortField(): ?string
     {
         return $this->data['sort_field'];
     }
 
+    /**
+     * @param string|null $field
+     * @return $this
+     *
+     * @deprecated
+     */
     public function setSortField(?string $field): self
     {
         $this->data['sort_field'] = $field;
@@ -253,11 +299,22 @@ class PaginationData
         return $this;
     }
 
+    /**
+     * @return string|null
+     *
+     * @deprecated
+     */
     public function getSortDirection(): ?string
     {
         return $this->data['sort_direction'];
     }
 
+    /**
+     * @param string|null $sort
+     * @return $this
+     *
+     * @deprecated
+     */
     public function setSortDirection(?string $sort): self
     {
         $this->data['sort_direction'] = $sort;
@@ -269,11 +326,55 @@ class PaginationData
      * sql sort
      */
 
+    /**
+     * @return array
+     */
+    public function getSqlSort(): array
+    {
+        return $this->data['sqlSort'];
+    }
+
+    /**
+     * @param array $sort
+     * @return $this
+     */
+    public function setSqlSort(array $sort): self
+    {
+        $this->data['sqlSort'] = $sort;
+
+        return $this;
+    }
+
+    public function addSqlSort(string $field, string $direction): self
+    {
+        $this->data['sqlSort'][] = [$field => $direction];
+
+        return $this;
+    }
+
+    public function resetSqlSort(): self
+    {
+        $this->data['sqlSort'] = [];
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     *
+     * @deprecated
+     */
     public function getSqlSortField(): ?string
     {
         return $this->data['sqlSortField'];
     }
 
+    /**
+     * @param string|null $field
+     * @return $this
+     *
+     * @deprecated
+     */
     public function setSqlSortField(?string $field): self
     {
         $this->data['sqlSortField'] = $field;
@@ -281,11 +382,22 @@ class PaginationData
         return $this;
     }
 
+    /**
+     * @return string|null
+     *
+     * @deprecated
+     */
     public function getSqlSortDirection(): ?string
     {
         return $this->data['sqlSortDirection'];
     }
 
+    /**
+     * @param string|null $sort
+     * @return $this
+     *
+     * @deprecated
+     */
     public function setSqlSortDirection(?string $sort): self
     {
         $this->data['sqlSortDirection'] = $sort;

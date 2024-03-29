@@ -24,7 +24,7 @@ use jonasarts\Bundle\PaginationBundle\Pagination\PaginationInterface;
 abstract class AbstractPagination implements PaginationInterface, Countable, Iterator, ArrayAccess
 {
     /**
-     * items is used by Countable, Iterator, ArrayAccess; contains only the itemPerPage items.
+     * "items" is used by Countable, Iterator, ArrayAccess; contains only the itemPerPage items.
      *
      * for pagination calculations:
      * - currentPageNumber is the number of the page for which the pagination window is calculated
