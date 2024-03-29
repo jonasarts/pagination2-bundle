@@ -264,7 +264,7 @@ class PaginationData
 
     public function addSort(string $field, string $direction): self
     {
-        $this->data['sort'][] = [$field => $direction];
+        $this->data['sort'][$field] = $direction;
 
         return $this;
     }
@@ -347,7 +347,7 @@ class PaginationData
 
     public function addSqlSort(string $field, string $direction): self
     {
-        $this->data['sqlSort'][] = [$field => $direction];
+        $this->data['sqlSort'][$field] = $direction;
 
         return $this;
     }
