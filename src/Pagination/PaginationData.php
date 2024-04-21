@@ -271,14 +271,28 @@ class PaginationData
         return $this;
     }
 
-    public function addSort(string $field, string $direction): self
+    public function addSortField(string $field, string $direction): self
     {
         $this->data['sort'][$field] = $direction == 'desc' ? 'desc' : ($direction == 'asc' ? 'asc' : 'none');
 
         return $this;
     }
 
-    public function removeSort(string $field): self
+    public function updateSortField(string $old_field, string $new_field, string $new_direction): self
+    {
+        $result = [];
+        $direction = $new_direction == 'desc' ? 'desc' : ($new_direction == 'asc' ? 'asc' : 'none');
+
+        foreach ($this->data['sort'] as $k => $v) {
+            $result[$k === $old_field ? $new_field : $k] = ($k === $old_field ? $direction : $v);
+        }
+
+        $this->data['sort'] = $result;
+
+        return $this;
+    }
+
+    public function removeSortField(string $field): self
     {
         if (array_key_exists($field, $this->data['sort'])) {
             unset($this->data['sort'][$field]);
@@ -327,7 +341,6 @@ class PaginationData
 
     /**
      * @return string|null
-     *
      * @deprecated
      */
     public function getSortField(): ?string
@@ -338,7 +351,6 @@ class PaginationData
     /**
      * @param string|null $field
      * @return $this
-     *
      * @deprecated
      */
     public function setSortField(?string $field): self
@@ -350,7 +362,6 @@ class PaginationData
 
     /**
      * @return string|null
-     *
      * @deprecated
      */
     public function getSortDirection(): ?string
@@ -361,7 +372,6 @@ class PaginationData
     /**
      * @param string|null $sort
      * @return $this
-     *
      * @deprecated
      */
     public function setSortDirection(?string $sort): self
@@ -377,7 +387,6 @@ class PaginationData
 
     /**
      * @return string|null
-     *
      * @deprecated
      */
     public function getSqlSortField(): ?string
@@ -388,7 +397,6 @@ class PaginationData
     /**
      * @param string|null $field
      * @return $this
-     *
      * @deprecated
      */
     public function setSqlSortField(?string $field): self
@@ -400,7 +408,6 @@ class PaginationData
 
     /**
      * @return string|null
-     *
      * @deprecated
      */
     public function getSqlSortDirection(): ?string
@@ -411,7 +418,6 @@ class PaginationData
     /**
      * @param string|null $sort
      * @return $this
-     *
      * @deprecated
      */
     public function setSqlSortDirection(?string $sort): self

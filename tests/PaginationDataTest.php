@@ -23,22 +23,52 @@ class PaginationDataTest extends WebTestCase
         $data = new PaginationData();
         //dump($data);
 
-        $data->addSort("test_field", "asc");
+        $data->addSortField("test_field", "asc");
         $this->assertEquals("asc", $data->getSort()["test_field"]);
 
         $s = $data->getSortAsString();
         $this->assertEquals("test_field.asc", $s);
 
-        $data->setSortFromString("my_field_1.asc&other_field_2.desc");
-        $data->addSort("third", "none_X");
+        $data->setSortFromString("my_field_1.asc---other_field_2.desc");
+        $data->addSortField("third", "none_X");
 
         $this->assertEquals(3, count($data->getSort()));
         $this->assertEquals("asc", $data->getSort()["my_field_1"]);
         $this->assertEquals("desc", $data->getSort()["other_field_2"]);
         $this->assertEquals("none", $data->getSort()["third"]);
 
-        $data->removeSort("other_field_2");
+        $data->removeSortField("other_field_2");
         $this->assertEquals(2, count($data->getSort()));
+        $this->assertEquals("none", $data->getSort()["third"]);
+    }
+
+    public function testSortUpdate()
+    {
+        $data = new PaginationData();
+        $data->addSortField("test_field", "asc");
+        $data->addSortField("second", "desc");
+        $data->addSortField("third", "none");
+
+        $this->assertEquals("asc", $data->getSort()["test_field"]);
+        $this->assertEquals("desc", $data->getSort()["second"]);
+        $this->assertEquals("none", $data->getSort()["third"]);
+
+        // --
+
+        $data->updateSortField("second", "forth", "asc");
+
+        $this->assertEquals("asc", $data->getSort()["test_field"]);
+        $this->assertEquals("asc", $data->getSort()["forth"]);
+        $this->assertEquals("none", $data->getSort()["third"]);
+
+        // --
+
+        $this->assertTrue(array_key_exists("test_field", $data->getSort()));
+
+        $data->removeSortField("test_field");
+
+        $this->assertFalse(array_key_exists("test_field", $data->getSort()));
+        $this->assertEquals("asc", $data->getSort()["forth"]);
         $this->assertEquals("none", $data->getSort()["third"]);
     }
 
