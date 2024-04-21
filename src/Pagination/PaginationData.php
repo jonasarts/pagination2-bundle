@@ -443,11 +443,18 @@ class PaginationData
      */
 
 
+    /**
+     * @return string|null
+     */
     public function getSqlSearchString(): ?string
     {
         return $this->data['sqlSearchString'];
     }
 
+    /**
+     * @param string|null $s
+     * @return $this
+     */
     public function setSqlSearchString(?string $s): self
     {
         $this->data['sqlSearchString'] = $s;
@@ -457,7 +464,6 @@ class PaginationData
 
     /**
      * @return array
-     * @deprecated
      */
     public function getSqlFilter(): array
     {
@@ -467,7 +473,6 @@ class PaginationData
     /**
      * @param array $filter
      * @return self
-     * @deprecated
      */
     public function setSqlFilter(array $filter): self
     {
