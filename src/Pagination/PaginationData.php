@@ -45,12 +45,14 @@ use jonasarts\Bundle\RegistryBundle\Registry\AbstractRegistry;
  * Additional data fields
  * 
  * - for UI values
- * -- sortField
- * -- sortDirection
+ * -- (sortField)
+ * -- (sortDirection)
+ * -- sort
  * 
  * - for sql
- * -- sqlSortField : string
- * -- sqlSortDirection : string
+ * -- sortSql
+ * -- (sqlSortField : string)
+ * -- (sqlSortDirection : string)
  * -- sqlSearchString : string
  * -- sqlFilter : array
  * 
@@ -91,7 +93,7 @@ class PaginationData
             'sort_direction' => null,
         );
 
-        $this->data['sqlSort'] = []; // new sort field array [['field' => 'direction],['field' => 'direction']]
+        $this->data['sql_sort'] = []; // new sort field array [['field' => 'direction],['field' => 'direction']]
         // TODO remove
         $this->data['sqlSortField'] = null;
         $this->data['sqlSortDirection'] = null;
@@ -250,6 +252,8 @@ class PaginationData
 
     /**
      * ui sort
+     * - for passing data from pagination to sql
+     * - for managing sort in the ui (table columns sort indicator)
      */
 
     /**
@@ -383,7 +387,40 @@ class PaginationData
 
     /**
      * sql sort
+     * - manage sorting in db
+     * - decouple ui sorting from db sorting
      */
+
+    /**
+     * @return array
+     */
+    public function getSqlSort(): array
+    {
+        return $this->data['sql_sort'];
+    }
+
+    public function addSqlSortField(string $field, string $direction): self
+    {
+        $this->data['sql_sort'][$field] = $direction == 'desc' ? 'desc' : ($direction == 'asc' ? 'asc' : 'none');
+
+        return $this;
+    }
+
+    public function removeSqlSortField(string $field): self
+    {
+        if (array_key_exists($field, $this->data['sql_sort'])) {
+            unset($this->data['sql_sort'][$field]);
+        }
+
+        return $this;
+    }
+
+    public function resetSqlSort(): self
+    {
+        $this->data['sql_sort'] = [];
+
+        return $this;
+    }
 
     /**
      * @return string|null
