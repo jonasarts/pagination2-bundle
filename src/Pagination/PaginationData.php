@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace jonasarts\Bundle\PaginationBundle\Pagination;
 
-use Symfony\Component\HttpFoundation\Request;
-
 use Hasch\Framework\Helper\FilterHelper;
 use Hasch\Security\Model\UserInterface;
 use jonasarts\Bundle\RegistryBundle\Registry\AbstractRegistry;
@@ -59,6 +57,14 @@ use jonasarts\Bundle\RegistryBundle\Registry\AbstractRegistry;
  */
 class PaginationData
 {
+    // https://stackoverflow.com/questions/1856785/characters-allowed-in-a-url
+    // unreserved  = ALPHA / DIGIT / "-" / "." / "_" / "~"     <---This seems like a practical shortcut, most closely resembling original answer
+
+
+    const SORT_FIELD_DIRECTION_SEPARATOR = ".";
+    // the separator must not be used anywhere in the field_name !!!
+    const SORT_FIELDS_SEPARATOR = "---";
+
     /**
      * @var array
      */
@@ -80,13 +86,16 @@ class PaginationData
             'total_pages' => 0,
 
             'sort' => [], // new sort field array [['field' => 'direction],['field' => 'direction']]
+            // TODO remove
             'sort_field' => null,
             'sort_direction' => null,
         );
 
         $this->data['sqlSort'] = []; // new sort field array [['field' => 'direction],['field' => 'direction']]
+        // TODO remove
         $this->data['sqlSortField'] = null;
         $this->data['sqlSortDirection'] = null;
+
         $this->data['sqlSearchString'] = null;
         $this->data['sqlFilter'] = array();
 
@@ -264,7 +273,16 @@ class PaginationData
 
     public function addSort(string $field, string $direction): self
     {
-        $this->data['sort'][$field] = $direction;
+        $this->data['sort'][$field] = $direction == 'desc' ? 'desc' : ($direction == 'asc' ? 'asc' : 'none');
+
+        return $this;
+    }
+
+    public function removeSort(string $field): self
+    {
+        if (array_key_exists($field, $this->data['sort'])) {
+            unset($this->data['sort'][$field]);
+        }
 
         return $this;
     }
@@ -272,6 +290,37 @@ class PaginationData
     public function resetSort(): self
     {
         $this->data['sort'] = [];
+
+        return $this;
+    }
+
+    public function getSortAsString(): string
+    {
+        $a = [];
+
+        foreach ($this->data['sort'] as $field => $direction) {
+            $a[] = sprintf("%s".static::SORT_FIELD_DIRECTION_SEPARATOR."%s", $field, $direction);
+        }
+
+        return join(static::SORT_FIELDS_SEPARATOR, $a);
+    }
+
+    public function setSortFromString(string $sort): self
+    {
+        $this->resetSort();
+
+        $a = explode(static::SORT_FIELDS_SEPARATOR, $sort);
+
+        foreach($a as $item) {
+            $items = explode(static::SORT_FIELD_DIRECTION_SEPARATOR, $item);
+
+            if (is_array($items) && count($items) == 2) {
+                $field = trim($items[0]);
+                $direction = strtolower(trim($items[1]));
+
+                $this->data['sort'][$field] = $direction == 'desc' ? 'desc' : ($direction == 'asc' ? 'asc' : 'none');
+            }
+        }
 
         return $this;
     }
@@ -327,39 +376,6 @@ class PaginationData
      */
 
     /**
-     * @return array
-     */
-    public function getSqlSort(): array
-    {
-        return $this->data['sqlSort'];
-    }
-
-    /**
-     * @param array $sort
-     * @return $this
-     */
-    public function setSqlSort(array $sort): self
-    {
-        $this->data['sqlSort'] = $sort;
-
-        return $this;
-    }
-
-    public function addSqlSort(string $field, string $direction): self
-    {
-        $this->data['sqlSort'][$field] = $direction;
-
-        return $this;
-    }
-
-    public function resetSqlSort(): self
-    {
-        $this->data['sqlSort'] = [];
-
-        return $this;
-    }
-
-    /**
      * @return string|null
      *
      * @deprecated
@@ -405,6 +421,28 @@ class PaginationData
         return $this;
     }
 
+    /**
+     * Helper to switch to (and test) new data structure
+     *
+     * @return self
+     */
+    public function removeDeprecatedSortData(): self
+    {
+        unset($this->data['sort_field']);
+        unset($this->data['sort_direction']);
+
+        unset($this->data['sqlSort']);
+        unset($this->data['sqlSortField']);
+        unset($this->data['sqlSortDirection']);
+
+        return $this;
+    }
+
+    /**
+     * sql search
+     */
+
+
     public function getSqlSearchString(): ?string
     {
         return $this->data['sqlSearchString'];
@@ -417,11 +455,20 @@ class PaginationData
         return $this;
     }
 
+    /**
+     * @return array
+     * @deprecated
+     */
     public function getSqlFilter(): array
     {
         return $this->data['sqlFilter'];
     }
 
+    /**
+     * @param array $filter
+     * @return self
+     * @deprecated
+     */
     public function setSqlFilter(array $filter): self
     {
         $this->data['sqlFilter'] = $filter;
@@ -481,7 +528,7 @@ class PaginationData
     /* get pagination from data */
 
     /**
-     * Calculate some 'geometry' paginaton data, after doctrine paginator has loaded the entities !
+     * Calculate some 'geometry' pagination data, after doctrine paginator has loaded the entities !
      *
      * @return void
      * @throws \Exception
@@ -513,8 +560,6 @@ class PaginationData
             throw new \Exception('PaginationData.rangeSize too small');
         }
 
-
-        
         // calculation
 
         if ($rangeSize % 2 <> 0) {
@@ -525,6 +570,13 @@ class PaginationData
 
         $paginationRangeStartPage = $pageIndex - $halfRangeSize < 0 ? 0 : $pageIndex - $halfRangeSize;
         $paginationRangeEndPage = $pageIndex + $halfRangeSize > $totalPages - 1 ? $totalPages - 1 : $pageIndex + $halfRangeSize;
+
+        if ($paginationRangeStartPage < 0) {
+            throw new \Exception('PaginationData.RangeStart too small');
+        }
+        if ($paginationRangeStartPage > $paginationRangeEndPage) {
+            throw new \Exception('PaginationData.RangeEnd too small');
+        }
 
         while (
             ($paginationRangeEndPage - $paginationRangeStartPage + 1 < $rangeSize &&
