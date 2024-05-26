@@ -399,6 +399,26 @@ class PaginationData
         return $this->data['sql_sort'];
     }
 
+    /**
+     * Returns the sort direction of the field, if the field exists.
+     *
+     * @param string $field
+     * @return string|null
+     */
+    public function getSqlSortFieldDirection(string $field): ?string
+    {
+        if (!array_key_exists($field, $this->data['sql_sort'])) {
+            return null;
+        }
+
+        return $this->data['sql_sort'][$field];
+    }
+
+    /**
+     * @param string $field
+     * @param string $direction
+     * @return $this
+     */
     public function addSqlSortField(string $field, string $direction): self
     {
         $this->data['sql_sort'][$field] = $direction == 'desc' ? 'desc' : ($direction == 'asc' ? 'asc' : 'none');
@@ -406,6 +426,10 @@ class PaginationData
         return $this;
     }
 
+    /**
+     * @param string $field
+     * @return $this
+     */
     public function removeSqlSortField(string $field): self
     {
         if (array_key_exists($field, $this->data['sql_sort'])) {

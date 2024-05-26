@@ -168,4 +168,28 @@ class PaginationDataTest extends WebTestCase
         $this->assertFalse($first);
         $this->assertTrue($last);
     }
+
+    public function testPaginationDataSqlGet()
+    {
+        $data = new PaginationData();
+
+        $data->addSqlSortField('test1', 'asc');
+
+        $f = $data->getSqlSortFieldDirection('test1');
+
+        $this->assertEquals("asc", $f);
+    }
+
+    public function testPaginationDataSqlUnset()
+    {
+        $data = new PaginationData();
+
+        $data->addSqlSortField('test2', 'desc');
+
+        $this->assertEquals(['test2'=>'desc'], $data->getSqlSort());
+
+        $data->removeSqlSortField('test2');
+
+        $this->assertEquals([], $data->getSqlSort());
+    }
 }
