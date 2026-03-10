@@ -61,7 +61,7 @@ class PageSizeSelectorRenderer
      * @param array|null $additionalData
      * @return PageSizeSelector
      */
-    public function getPageSizeSelector(PaginationData $paginationData, array $additionalData = null): PageSizeSelector
+    public function getPageSizeSelector(PaginationData $paginationData, ?array $additionalData = null): PageSizeSelector
     {
         if (is_null($additionalData)) {
             $additionalData = array();

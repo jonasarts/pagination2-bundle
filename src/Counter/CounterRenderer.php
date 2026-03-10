@@ -58,10 +58,10 @@ class CounterRenderer
 
     /**
      * @param PaginationData $paginationData
-     * @param array|null     $additionalData
-     * @return \Closure
+     * @param array|null $additionalData
+     * @return Counter
      */
-    public function getCounter(PaginationData $paginationData, array $additionalData = null): Counter
+    public function getCounter(PaginationData $paginationData, ?array $additionalData = null): Counter
     {
         if (is_null($additionalData)) {
             $additionalData = array();

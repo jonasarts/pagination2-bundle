@@ -621,7 +621,13 @@ class PaginationData
         // data from configuration
         $pageIndex = $this->getPageIndex(); // int : current page index
         $rangeSize = $this->getRangeSize(); // int : current range size
-        
+
+        // clamp pageIndex to valid range
+        if ($pageIndex >= $totalPages) {
+            $pageIndex = max(0, $totalPages - 1);
+            $this->setPageIndex($pageIndex);
+        }
+
         if ($totalRecords == 0) {
             $this->data['pages'] = array(0);
 

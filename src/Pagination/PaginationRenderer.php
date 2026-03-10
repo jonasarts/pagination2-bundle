@@ -62,7 +62,7 @@ class PaginationRenderer
      * @param array|null $additionalData
      * @return Pagination
      */
-    public function getPagination(array $entities, PaginationData $paginationData, array $additionalData = null): Pagination
+    public function getPagination(array $entities, PaginationData $paginationData, ?array $additionalData = null): Pagination
     {
         if (is_null($entities)) {
             $entities = array();
