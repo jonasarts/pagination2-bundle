@@ -51,7 +51,6 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         // auto register pagination values (requires registry service)
                         ->booleanNode('auto_register')
-                            ->isRequired()
                             ->defaultTrue()
                         ->end()
                     ->end()
@@ -61,7 +60,6 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         // default template
                         ->scalarNode('template')
-                            ->isRequired()
                             ->cannotBeEmpty()
                             ->defaultValue('pagination/sliding.html.twig')
                         ->end()
@@ -72,7 +70,6 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         // default template
                         ->scalarNode('template')
-                            ->isRequired()
                             ->cannotBeEmpty()
                             ->defaultValue('pagination/pagesize.html.twig')
                         ->end()
@@ -83,7 +80,6 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         // default template
                         ->scalarNode('template')
-                            ->isRequired()
                             ->cannotBeEmpty()
                             ->defaultValue('pagination/counter.html.twig')
                         ->end()
