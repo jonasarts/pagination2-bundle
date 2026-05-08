@@ -1,6 +1,17 @@
 CHANGE LOG
 ==========
 
+V 7.0.1
+-------
+
+- Updated for implicitly nullable parameters (PHP 8.4)
+
+V 7.0.0
+-------
+
+- Requires PHP 8.2
+- Updated for Symfony 7.4
+
 V 6.3.0
 -------
 
